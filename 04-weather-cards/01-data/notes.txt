@@ -1,0 +1,4 @@
+Weather conditions list with icons: https://openweathermap.org/weather-conditions
+
+Current weather API: https://openweathermap.org/current
+Forecast API: https://openweathermap.org/forecast16

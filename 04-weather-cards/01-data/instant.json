@@ -1,0 +1,42 @@
+{
+    "coord": {
+        "lon": -94.73,
+        "lat": 38.95
+    },
+    "weather": [
+        {
+            "id": 804,
+            "main": "Clouds",
+            "description": "overcast clouds",
+            "icon": "04d"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 295.15,
+        "pressure": 1012,
+        "humidity": 73,
+        "temp_min": 294.15,
+        "temp_max": 296.15
+    },
+    "visibility": 16093,
+    "wind": {
+        "speed": 7.2,
+        "deg": 180
+    },
+    "clouds": {
+        "all": 90
+    },
+    "dt": 1525190040,
+    "sys": {
+        "type": 1,
+        "id": 1087,
+        "message": 0.0854,
+        "country": "US",
+        "sunrise": 1525173605,
+        "sunset": 1525223541
+    },
+    "id": 420011545,
+    "name": "Overland Park",
+    "cod": 200
+}
