@@ -12,8 +12,11 @@ class App extends Component {
     super(props);
     this.state = {
       items: [],
-      onDeleteItem: function (id) {
-          console.log("Deleted " + id);
+      onCheckItem: (id, checked) => {
+        this.onCheck(id, checked);
+      },
+      onDeleteItem: (id) => {
+        this.onDelete(id);
       }
     };
   }
@@ -55,6 +58,59 @@ class App extends Component {
         if (json.status === "OK") {
           this.setState({
             items: [...this.state.items, json.item]
+          })
+        }
+      })
+  }
+
+  onCheck(id, checked) {
+    console.log("Check item: " + id, checked);
+    let json = {
+      id: id,
+      completedTime: checked ? new Date().getTime() : null
+    };
+
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    let options = {
+      method: "PUT",
+      headers: headers,
+      body: JSON.stringify(json)
+    };
+
+    fetch("http://localhost:3400/items/" + id, options)
+      .then(response => response.json())
+      .then(json => {
+        // json.status ?= "OK"
+        // json.item, which is the item
+        if (json.status === "OK") {
+          this.setState({
+            items: this.state.items.map(item => item.id === json.id ? json.item : item)
+          })
+        }
+      })
+  }
+
+  onDelete(id) {
+    console.log("Delete item: " + id);
+
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    let options = {
+      method: "DELETE",
+      headers: headers
+    };
+
+    fetch("http://localhost:3400/items/" + id, options)
+      .then(response => response.json())
+      .then(json => {
+        // json.status ?= "OK"
+        // json.item, which is the item
+        if (json.status === "OK") {
+          this.setState({
+            items: this.state.items.filter(item => item.id !== id)
           })
         }
       })

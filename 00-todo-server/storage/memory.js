@@ -97,6 +97,7 @@ function updateItem(itemId, item) {
             return;
         }
         storage[itemId] = Object.assign(storage[itemId], item, { id: Number(itemId) });
+        console.log(storage[itemId]);
         resolve(storage[itemId]);
     });
 }
