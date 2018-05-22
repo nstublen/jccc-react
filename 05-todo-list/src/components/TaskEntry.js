@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import './TaskEntry.css';
 
+import DataStore from '../DataStore';
+
 class TaskEntry extends Component {
     constructor(props) {
         super(props);
@@ -16,23 +18,29 @@ class TaskEntry extends Component {
         });
     }
 
-    onSubmit(event) {
+    onSubmit(event, data) {
         event.preventDefault();
-        let text = this.refs.taskTextInput.value;
-        this.props.onAdd(text);
+        let text = this.state.value;
+        data.onAddItem(text);
         this.setState({
             value: ""
         });
     }
 
     render() {
-        return <form onSubmit={this.onSubmit.bind(this)}>
-            <input ref="taskTextInput" type="text"
-                   value={this.state.value}
-                   placeholder="Enter your task here..."
-                   onChange={this.onChange.bind(this)} />
-            <input type="submit" />
-        </form>
+        return <DataStore.Consumer>
+            {
+                data => {
+                    return <form onSubmit={event => this.onSubmit(event, data)}>
+                        <input type="text"
+                            value={this.state.value}
+                            placeholder="Enter your task here..."
+                            onChange={this.onChange.bind(this)} />
+                        <input type="submit" />
+                    </form>
+                }
+            }
+            </DataStore.Consumer>;
     }
 }
 

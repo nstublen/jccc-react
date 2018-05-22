@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
+import { Router, Route, Switch, Link } from 'react-router-dom';
+import { createBrowserHistory} from 'history';
+
 import './App.css';
 
 import DataStore from './DataStore';
-import TaskEntry from './components/TaskEntry';
-import TaskList from './components/TaskList';
+import TaskListPage from './components/TaskListPage';
+import TaskSummaryPage from './components/TaskSummaryPage';
 
-
+const history = createBrowserHistory();
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       items: [],
+      onAddItem: (text) => {
+        this.onAdd(text);
+      },
       onCheckItem: (id, isChecked) => {
         this.onCheck(id, isChecked);
       },
@@ -121,8 +127,18 @@ class App extends Component {
       <DataStore.Provider value={this.state}>
         <div className="App">
           <h1>To Do List</h1>
-          <TaskEntry onAdd={this.onAdd.bind(this)} />
-          <TaskList />
+          <Router history={history}>
+            <div>
+              <nav>
+                <Link to="/list">Link</Link>&nbsp;
+                <Link to="/summary">Summary</Link>
+              </nav>
+              <Switch>
+                <Route exact path="/list" component={TaskListPage} />
+                <Route exact path="/summary" component={TaskSummaryPage} />
+              </Switch>
+            </div>
+          </Router>
         </div>
       </DataStore.Provider>
     );
