@@ -16,34 +16,78 @@
     <div id="app">
         <!-- my app renders here -->
     </div>
-    <script src="react/build/react.js"></script>
-    <script src="react/build/react-dom.js"></script>
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
     <script>
         var TextAreaCounter = React.createClass({
             propTypes: {
                 text: React.PropTypes.string,
+                maxLength: React.PropTypes.number
             },
 
             getDefaultProps: function () {
                 return {
-                    text: '',
-                };
+                    text: "",
+                    maxLength: 50
+                }
+            },
+
+            getInitialState: function () {
+                return {
+                    text: this.props.text
+                }
+            },
+
+            _textChange: function (event) {
+                console.log("text changed");
+                this.setState({
+                    text: event.target.value
+                });
+            },
+
+            // Lifecycle management
+
+            componentWillMount: function () {
+                // Immediately before a component is placed into the DOM.
+            },
+
+            componentDidMount: function () {
+                // Immediately after a component is placed into the DOM.
+            },
+
+            componentWillUpdate: function () {
+                // Immediately before a component is updated in the DOM.
+            },
+
+            componentDidUpdate: function () {
+                // Immediately after a component is updated in the DOM.
+            },
+
+            componentWillUnmount: function () {
+                // Immediately before a component is removed from the DOM.
             },
 
             render: function () {
+                let customStyle = {};
+                if (this.props.maxLength - this.state.text.length <= 10) {
+                    customStyle.color = "red";
+                }
+
                 return React.DOM.div(null,
                     React.DOM.textarea({
-                        defaultValue: this.props.text,
+                        defaultValue: this.state.text,
+                        maxLength: this.props.maxLength,
+                        onChange: this._textChange
                     }),
-                    React.DOM.h3(null, this.props.text.length)
+                    React.DOM.h3({
+                        style: customStyle
+                    }, this.state.text.length)
                 );
             }
         });
 
         ReactDOM.render(
-            React.createElement(TextAreaCounter, {
-                text: "Bob",
-            }),
+            React.createElement(TextAreaCounter),
             document.getElementById("app")
         );
     </script>

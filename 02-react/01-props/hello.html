@@ -33,12 +33,26 @@
         });
 
         ReactDOM.render(
-            React.createElement(Welcome, {
-                name: "John",
-                image: "./images/hello.jpg"
-            }),
+            React.DOM.div(null,
+                React.createElement(Welcome, {
+                    name: "Bob",
+                    image: "./images/hello.jpg"
+                }),
+                React.createElement(Welcome, {
+                    name: "Jim",
+                    image: "./images/hello.jpg"
+                }),
+            ),
             document.getElementById("app")
         );
+
+        // ReactDOM.render(
+        //     <div>
+        //         <Welcome name="Bob" />
+        //         <Welcome name="Jim" />
+        //     </div>,
+        //     document.getElementById("app")
+        // )
     </script>
 </body>
 
