@@ -12,8 +12,8 @@ class App extends Component {
     super(props);
     this.state = {
       items: [],
-      onCheckItem: (id, checked) => {
-        this.onCheck(id, checked);
+      onCheckItem: (id, isChecked) => {
+        this.onCheck(id, isChecked);
       },
       onDeleteItem: (id) => {
         this.onDelete(id);
@@ -63,11 +63,11 @@ class App extends Component {
       })
   }
 
-  onCheck(id, checked) {
-    console.log("Check item: " + id, checked);
+  onCheck(id, isChecked) {
+    console.log("Update item: " + id);
     let json = {
       id: id,
-      completedTime: checked ? new Date().getTime() : null
+      completedTime: isChecked ? new Date().getTime() : null
     };
 
     let headers = new Headers();
@@ -85,6 +85,7 @@ class App extends Component {
         // json.status ?= "OK"
         // json.item, which is the item
         if (json.status === "OK") {
+          // json.item
           this.setState({
             items: this.state.items.map(item => item.id === json.id ? json.item : item)
           })
@@ -93,8 +94,7 @@ class App extends Component {
   }
 
   onDelete(id) {
-    console.log("Delete item: " + id);
-
+    console.log("Deleted " + id);
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
 

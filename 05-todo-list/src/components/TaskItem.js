@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import './TaskItem.css';
 
 class TaskItem extends Component {
-    onChange(event) {
-        this.props.onCheck(this.props.item.id, event.target.checked);
+    onCheckClick(event) {
+        this.props.onCheck(this.props.item.id,
+                           event.target.checked);
     }
 
     onDeleteClick(event) {
@@ -13,18 +14,13 @@ class TaskItem extends Component {
 
     render() {
         // this.props.item
+        // this.props.onCheck
         // this.props.onDelete
 
         let isChecked = (this.props.item.completedTime != null);
 
         return <div>
-            {
-                // If the item is checked, we render a checked
-                // <input>, otherwise, an unchecked <input>.
-                isChecked
-                    ? <input type="checkbox" checked onChange={this.onChange.bind(this)} />
-                    : <input type="checkbox" onChange={this.onChange.bind(this)} />
-            }
+            <input type="checkbox" checked={isChecked} onChange={this.onCheckClick.bind(this)} />
             <span>{this.props.item.text}</span>
             <button onClick={this.onDeleteClick.bind(this)}>Delete</button>
         </div>

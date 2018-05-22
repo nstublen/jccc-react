@@ -18,8 +18,8 @@ class TaskList extends Component {
                     return data.items.map(item => {
                         return <TaskItem key={`item-${item.id}`}
                                          item={item}
-                                         onCheck={data.onCheckItem.bind(this)}
-                                         onDelete={data.onDeleteItem.bind(data)} />
+                                         onCheck={data.onCheckItem}
+                                         onDelete={data.onDeleteItem} />
                     });
                 }
             }
